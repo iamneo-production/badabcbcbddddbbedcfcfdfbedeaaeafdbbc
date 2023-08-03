@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Banner } from './components/UI/Banner/Banner';
 import Button from './components/UI/Button/Button';
-import {Card from './components/UI/Card/Card';
+import Card from './components/UI/Card/Card';
 import './components/UI/Quizstyle.css';
 
 const App = () => {
