@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Banner } from './components/UI/Banner/Banner';
 import Button from './components/UI/Button/Button';
 import './components/UI/Card/Card';
-import './src'
+import './App.css'
 
 const App = () => {
   const Questionbank = [
