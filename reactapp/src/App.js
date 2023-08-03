@@ -1,8 +1,8 @@
 import React from 'react'
 import { Banner } from './components/UI/Banner/Banner';
 import  Button from './components/UI/Button/Button';
-import './Quizstyle.css'
-import './componentsQuizcomp.js'
+import './components/UI/Quizstyle.css';
+import './components/UI/Quizcomp'
 const App = () => {
     var Questionbank = [
         {

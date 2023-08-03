@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react';
 import  Card from "./components/UI/Card/Card.js";
 
 const QuizComp = () => {
