@@ -12,30 +12,7 @@ const App = () => {
       correctOption: 0,
       selectedOption: null,
     },
-    {
-      question: 'What is the largest mammal?',
-      options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
-      correctOption: 2,
-      selectedOption: null,
-    },
-    {
-      question: 'Which famous scientist developed the theory of relativity?',
-      options: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'],
-      correctOption: 1,
-      selectedOption: null,
-    },
-    {
-      question: 'Which gas do plants use for photosynthesis?',
-      options: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
-      correctOption: 0,
-      selectedOption: null,
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
-      correctOption: 1,
-      selectedOption: null,
-    },
+    
   ]);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -59,6 +36,14 @@ const App = () => {
     });
     setScore(newScore);
     setShowResults(true);
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      handleShowResults();
+    }
   };
 
   const handleRestartQuiz = () => {
@@ -86,14 +71,7 @@ const App = () => {
         </div>
       )}
       {!showResults && (
-        <Button
-          text={currentQuestionIndex === questions.length - 1 ? 'Show Results' : 'Next Question'}
-          onClick={
-            currentQuestionIndex === questions.length - 1
-              ? handleShowResults
-              : () => setCurrentQuestionIndex(currentQuestionIndex + 1)
-          }
-        />
+        <Button text="Next Question" onClick={handleNextQuestion} />
       )}
       {showResults && (
         <Button text="Restart Quiz" onClick={handleRestartQuiz} />
