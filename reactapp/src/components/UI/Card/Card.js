@@ -1,19 +1,31 @@
-
+// Card.js
 import React from 'react';
-import Button from '../Button/Button';
 
-const Card = ({ question, options, onOptionSelect, selectedOption }) => {
+const Card = ({
+  question,
+  correctAnswerMarkUpdate,
+  attempt,
+  options,
+  answer,
+}) => {
+  const handleOptionClick = (selectedOption) => {
+    attempt();
+    if (selectedOption === answer) {
+      correctAnswerMarkUpdate();
+    }
+  };
+
   return (
     <div className="card">
-      <h2>{question}</h2>
+      <h4>{question}</h4>
       <div className="options">
-        {options.map((option, index) => (
-          <Button
+        {Object.values(options).map((option, index) => (
+          <button
             key={index}
-            onClick={() => onOptionSelect(index)}
-            text={option}
-            disabled={selectedOption !== null} // Disable buttons if an option is selected
-          />
+            onClick={() => handleOptionClick(option)}
+          >
+            {option}
+          </button>
         ))}
       </div>
     </div>
