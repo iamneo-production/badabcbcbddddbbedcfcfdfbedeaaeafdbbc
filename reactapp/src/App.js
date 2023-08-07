@@ -1,9 +1,10 @@
 // App.js
 import React, { useState } from 'react';
-import Banner from './Banner';
-import Card from './Card';
-import Button from './Button';
-import './Quiz.'
+import Banner from './components/UI/Banner/Banner';
+import Card from './components/UI/Card/Card';
+import Button from './components/UI/Button/Button';
+import './Quiz.css';
+
 const App = () => {
   const [questions, setQuestions] = useState([
     {
