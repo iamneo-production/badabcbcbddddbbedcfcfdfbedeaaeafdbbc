@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Banner from './components/UI/Banner/Banner';
 import Card from './components/UI/Card/Card';
 import Button from './components/UI/Button/Button';
-
+import './Quiz.css'
 const App = () => {
   const [questions, setQuestions] = useState([
     {
@@ -12,7 +12,30 @@ const App = () => {
       correctOption: 0,
       selectedOption: null,
     },
-    
+    {
+      question: 'What is the largest mammal?',
+      options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
+      correctOption: 2,
+      selectedOption: null,
+    },
+    {
+      question: 'Which famous scientist developed the theory of relativity?',
+      options: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'],
+      correctOption: 1,
+      selectedOption: null,
+    },
+    {
+      question: 'Which gas do plants use for photosynthesis?',
+      options: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
+      correctOption: 0,
+      selectedOption: null,
+    },
+    {
+      question: 'Which planet is known as the Red Planet?',
+      options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
+      correctOption: 1,
+      selectedOption: null,
+    },
   ]);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -70,6 +93,8 @@ const App = () => {
           <p>Your Score: {score} out of {questions.length}</p>
         </div>
       )}
+)}
+
       {!showResults && (
         <Button text="Next Question" onClick={handleNextQuestion} />
       )}
