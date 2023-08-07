@@ -1,18 +1,23 @@
-import React from "react";
+// Card.js
+import React from 'react';
+import Button from './Button';
 
-class Card extends React.Component {
-  render() {
-    return (
-      <div>
-        <h4>{this.props.question}</h4>
-        {this.props.answers.map((answer, index) => (
-          <button key={index} onClick={() => this.props.handleAnswerResponse(answer.isCorrect)}>
-            {answer.Answer}
-          </button>
+const Card = ({ question, options, onOptionSelect, selectedOption }) => {
+  return (
+    <div className="card">
+      <h2>{question}</h2>
+      <div className="options">
+        {options.map((option, index) => (
+          <Button
+            key={index}
+            onClick={() => onOptionSelect(index)}
+            text={option}
+            disabled={selectedOption !== null} // Disable buttons if an option is selected
+          />
         ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Card;

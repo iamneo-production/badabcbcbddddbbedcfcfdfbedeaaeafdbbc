@@ -6,13 +6,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  * {
-    font-family: "Verdana", cursive, sans-serif;
-    color: #ffffff;
-  }
+  
+  /* Remove font-family and color from '*' selector as it's already defined for 'body' */
   
   body {
-    background-color:#2f922f;
+    background-color: #2f922f;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,19 +21,13 @@ body {
     background-color: #252d4a;
     width: 450px;
     min-height: 200px;
-    height: min-content;
+    /* Remove 'height' and 'display' properties to allow content to expand */
     border-radius: 15px;
     padding: 20px;
     box-shadow: 10px 10px 42px 0px rgba(63, 59, 59, 0.75);
-    display: flex;
-    justify-content: space-evenly;
   }
   
-  .score-section {
-    display: flex;
-    font-size: 24px;
-    align-items: center;
-  }
+  /* Remove '.score-section' as it's not present in your provided HTML structure */
   
   /* QUESTION/TIMER/LEFT SECTION */
   .question-section {
@@ -70,7 +62,7 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* Remove 'justify-content' and 'align-items' to properly align buttons */
   }
   
   button {
@@ -79,22 +71,13 @@ body {
     color: #ffffff;
     background-color: #252d4a;
     border-radius: 15px;
-    display: flex;
-    padding: 5px;
-    justify-content: flex-start;
-    align-items: center;
+    padding: 10px; /* Adjust padding for better button appearance */
+    margin-top: 10px; /* Add margin between buttons */
     border: 5px solid #234668;
     cursor: pointer;
   }
-
   
-  .correct {
-    background-color: #2f922f;
-  }
-  
-  .incorrect {
-    background-color: #ff3333;
-  }
+  /* Keep '.correct' and '.incorrect' classes for styling correct and incorrect answers */
   
   button:hover {
     background-color: #555e7d;
@@ -107,3 +90,4 @@ body {
   button svg {
     margin-right: 5px;
   }
+  

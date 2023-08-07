@@ -1,9 +1,12 @@
+// Banner.js
 import React from 'react';
 
-export const Banner = () => {
+const Banner = () => {
   return (
-    <div>
-      {/* Add your banner content here */}
+    <div className="banner">
+      <h1>Trivia Quiz App</h1>
     </div>
   );
 };
+
+export default Banner;

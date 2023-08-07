@@ -1,86 +1,115 @@
+// App.js
 import React, { useState } from 'react';
-import { Banner } from './components/UI/Banner/Banner';
-import Button from './components/UI/Button/Button';
-import './components/UI/Card/Card';
-import './components/UI/Quizstyle.css';
-
+import Banner from './Banner';
+import Card from './Card';
+import Button from './Button';
+import './Quiz.'
 const App = () => {
-  const Questionbank = [
-    // Your array of questions and answers
-  ];
+  const [questions, setQuestions] = useState([
+    {
+      question: 'What is the capital of France?',
+      options: ['Paris', 'Berlin', 'Madrid', 'London'],
+      correctOption: 0,
+      selectedOption: null,
+    },
+    // Add more questions here
+    // ... (other questions)
+    {
+      question: 'What is the largest mammal?',
+      options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
+      correctOption: 2,
+      selectedOption: null,
+    },
+    {
+      question: 'Which famous scientist developed the theory of relativity?',
+      options: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'],
+      correctOption: 1,
+      selectedOption: null,
+    },
+    {
+      question: 'Which gas do plants use for photosynthesis?',
+      options: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
+      correctOption: 0,
+      selectedOption: null,
+    },
+    {
+      question: 'Which planet is known as the Red Planet?',
+      options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
+      correctOption: 1,
+      selectedOption: null,
+    },
+  ]);
 
-  // useState Hook
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [showQuiz, setShowQuiz] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
-  const handleAnswerResponse = (isCorrect) => {
-    if (isCorrect) {
-      setScore(score + 1);
-    }
-
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < Questionbank.length) {
-      setCurrentQuestion(nextQuestion);
-    } else {
-      setShowScore(true);
+  const handleOptionSelect = (selectedOptionIndex) => {
+    const selectedQuestion = questions[currentQuestionIndex];
+    if (selectedQuestion.selectedOption === null) {
+      selectedQuestion.selectedOption = selectedOptionIndex;
+      setQuestions([...questions]);
     }
   };
 
-  const resetQuiz = () => {
-    setCurrentQuestion(0);
+  const handleShowResults = () => {
+    let newScore = 0;
+    questions.forEach((question) => {
+      if (question.selectedOption === question.correctOption) {
+        newScore++;
+      }
+    });
+    setScore(newScore);
+    setShowResults(true);
+  };
+
+  const renderQuestions = () => {
+    if (showResults) {
+      return (
+        <div className="results">
+          <p>Your Score: {score} out of 5</p>
+        </div>
+      );
+    }
+
+    const currentQuestion = questions[currentQuestionIndex];
+
+    return (
+      <>
+        <Card
+          question={currentQuestion.question}
+          options={currentQuestion.options}
+          onOptionSelect={handleOptionSelect}
+          selectedOption={currentQuestion.selectedOption}
+        />
+        <Button text="Next Question" onClick={handleNextQuestion} />
+      </>
+    );
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      handleShowResults();
+    }
+  };
+
+  const handleRestartQuiz = () => {
+    setQuestions(
+      questions.map((question) => ({ ...question, selectedOption: null }))
+    );
+    setCurrentQuestionIndex(0);
     setScore(0);
-    setShowScore(false);
-  };
-
-  const handleQuizButton = () => {
-    setShowQuiz(true);
-  };
-
-  const text = () => {
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < Questionbank.length) {
-      return "Show Results";
-    } else {
-      return "Start Quiz";
-    }
+    setShowResults(false);
   };
 
   return (
-    <div className='app'>
+    <div className="app">
       <Banner />
-      <h1>Quizz App</h1>
-      {!showQuiz && <Button onClick={handleQuizButton} text="Start Quiz" />}
-      {showQuiz && !showScore && (
-        <div>
-          <div className='question-section'>
-            <div className='question-count'>
-              <span>{currentQuestion + 1}</span>/{Questionbank.length}
-            </div>
-            <div className='question-text'>
-              {Questionbank[currentQuestion].Question}
-            </div>
-          </div>
-          <div className='answer-section'>
-            {Questionbank[currentQuestion].Answers.map((answer, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerResponse(answer.isCorrect)}
-              >
-                {answer.Answer}
-              </button>
-            ))}
-            <Button onClick={resetQuiz} text={text()} />
-          </div>
-        </div>
-      )}
-      {showScore && (
-        <div className='score-section'>
-          <Banner />
-          You have answered {score} / {Questionbank.length} correctly
-          <Button onClick={resetQuiz} text='Start Quiz' />
-        </div>
+      {renderQuestions()}
+      {showResults && (
+        <Button text="Restart Quiz" onClick={handleRestartQuiz} />
       )}
     </div>
   );
