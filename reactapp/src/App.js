@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import Banner from './components/UI/Banner/Banner';
 import Card from './components/UI/Card/Card';
@@ -13,8 +12,7 @@ const App = () => {
       correctOption: 0,
       selectedOption: null,
     },
-    // Add more questions here
-    // ... (other questions)
+
     {
       question: 'What is the largest mammal?',
       options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
