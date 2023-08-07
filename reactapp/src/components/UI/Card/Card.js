@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import Button from '../Button/Button';
 
 const Card = ({ question, options, onOptionSelect, selectedOption }) => {
   return (
