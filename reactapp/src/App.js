@@ -1,8 +1,8 @@
+// App.js
 import React, { useState } from 'react';
 import Banner from './components/UI/Banner/Banner';
 import Card from './components/UI/Card/Card';
 import Button from './components/UI/Button/Button';
-import './Quiz.css';
 
 const App = () => {
   const [questions, setQuestions] = useState([
@@ -12,7 +12,6 @@ const App = () => {
       correctOption: 0,
       selectedOption: null,
     },
-
     {
       question: 'What is the largest mammal?',
       options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
@@ -62,38 +61,6 @@ const App = () => {
     setShowResults(true);
   };
 
-  const renderQuestions = () => {
-    if (showResults) {
-      return (
-        <div className="results">
-          <p>Your Score: {score} out of 5</p>
-        </div>
-      );
-    }
-
-    const currentQuestion = questions[currentQuestionIndex];
-
-    return (
-      <>
-        <Card
-          question={currentQuestion.question}
-          options={currentQuestion.options}
-          onOptionSelect={handleOptionSelect}
-          selectedOption={currentQuestion.selectedOption}
-        />
-        <Button text="Next Question" onClick={handleNextQuestion} />
-      </>
-    );
-  };
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      handleShowResults();
-    }
-  };
-
   const handleRestartQuiz = () => {
     setQuestions(
       questions.map((question) => ({ ...question, selectedOption: null }))
@@ -106,7 +73,28 @@ const App = () => {
   return (
     <div className="app">
       <Banner />
-      {renderQuestions()}
+      {!showResults ? (
+        <Card
+          question={questions[currentQuestionIndex].question}
+          options={questions[currentQuestionIndex].options}
+          onOptionSelect={handleOptionSelect}
+          selectedOption={questions[currentQuestionIndex].selectedOption}
+        />
+      ) : (
+        <div className="results">
+          <p>Your Score: {score} out of {questions.length}</p>
+        </div>
+      )}
+      {!showResults && (
+        <Button
+          text={currentQuestionIndex === questions.length - 1 ? 'Show Results' : 'Next Question'}
+          onClick={
+            currentQuestionIndex === questions.length - 1
+              ? handleShowResults
+              : () => setCurrentQuestionIndex(currentQuestionIndex + 1)
+          }
+        />
+      )}
       {showResults && (
         <Button text="Restart Quiz" onClick={handleRestartQuiz} />
       )}

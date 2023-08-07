@@ -1,10 +1,10 @@
 // Button.js
 import React from 'react';
 
-const Button = ({ onClick, text }) => {
+const Button = ({ children, onClick, disabled }) => {
   return (
-    <button className="button" onClick={onClick}>
-      {text}
+    <button onClick={onClick} disabled={disabled}>
+      {children}
     </button>
   );
 };
