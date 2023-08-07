@@ -93,8 +93,7 @@ const App = () => {
           <p>Your Score: {score} out of {questions.length}</p>
         </div>
       )}
-)}
-
+      
       {!showResults && (
         <Button text="Next Question" onClick={handleNextQuestion} />
       )}
