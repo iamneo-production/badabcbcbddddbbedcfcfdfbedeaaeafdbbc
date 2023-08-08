@@ -1,7 +1,7 @@
 import React from "react";
 
 const Banner = () => {
-  return <h1>Quizz App</h1>;
+  return <h1 className="banner">Quizz App</h1>;
 };
 
 export default Banner;
