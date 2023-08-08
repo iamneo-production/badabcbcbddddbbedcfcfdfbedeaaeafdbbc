@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Banner from "./components/UI/Banner/Banner";
 import Card from "./components/UI/Card/Card";
 import Button from "./components/UI/Button/Button";
-
+import './Quiz.css';
 const App = () => {
   const [questions, setQuestions] = useState([
     {
@@ -38,6 +38,9 @@ const App = () => {
     if (isCorrect) {
       setScore(score + 1);
     }
+    const updatedQuestions = [...questions];
+    updatedQuestions[currentIndex].selectedOption = updatedQuestions[currentIndex].correctOption;
+    setQuestions(updatedQuestions);
     setCurrentIndex(currentIndex + 1);
     if (currentIndex === questions.length - 1) {
       setShowResults(true);
@@ -45,31 +48,15 @@ const App = () => {
   };
 
   const handleRestart = () => {
+    setQuestions(prevQuestions =>
+      prevQuestions.map(question => ({
+        ...question,
+        selectedOption: null,
+      }))
+    );
     setCurrentIndex(0);
     setShowResults(false);
     setScore(0);
-    resetQuestionSelection();
-  };
-
-  const handleStartQuiz = () => {
-    setCurrentIndex(0);
-    setShowResults(false);
-    setScore(0);
-    resetQuestionSelection();
-  };
-
-  const resetQuestionSelection = () => {
-    const updatedQuestions = questions.map(question => ({
-      ...question,
-      selectedOption: null,
-    }));
-    setQuestions(updatedQuestions);
-  };
-
-  const handleOptionSelect = (questionIndex, optionIndex) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions[questionIndex].selectedOption = optionIndex;
-    setQuestions(updatedQuestions);
   };
 
   return (
@@ -78,7 +65,7 @@ const App = () => {
       {showResults ? (
         <div className="results">
           <h2>Your Score: {score}</h2>
-          <Button onClick={handleStartQuiz}>Start Quiz</Button>
+          <Button onClick={handleRestart}>Start Quiz</Button>
         </div>
       ) : (
         <div>
@@ -87,7 +74,6 @@ const App = () => {
             options={questions[currentIndex].options}
             selectedOption={questions[currentIndex].selectedOption}
             correctOption={questions[currentIndex].correctOption}
-            onOptionSelect={optionIndex => handleOptionSelect(currentIndex, optionIndex)}
             attempt={handleAttempt}
           />
           <Button

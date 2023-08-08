@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../Button/Button";
 
 const Card = ({ question, options, answer, attempt }) => {
   const [disabledOptions, setDisabledOptions] = useState([]);
