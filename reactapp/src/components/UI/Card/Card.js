@@ -1,34 +1,32 @@
-
-// Card.js
-import React from 'react';
+import React, { useState } from "react";
+import Button from './components/UI/Button/Button';
 
 const Card = ({
   question,
-  correctAnswerMarkUpdate,
-  attempt,
   options,
   answer,
+  correctAnswerMarkUpdate,
+  attempt,
 }) => {
-  const handleOptionClick = (selectedOption) => {
-    attempt();
-    if (selectedOption === answer) {
-      correctAnswerMarkUpdate();
-    }
+  const [disabledOptions, setDisabledOptions] = useState([]);
+
+  const handleOptionClick = (option) => {
+    setDisabledOptions([...disabledOptions, option]);
+    attempt(option === answer);
   };
 
   return (
-    <div className="card">
+    <div>
       <h4>{question}</h4>
-      <div className="options">
-        {Object.values(options).map((option, index) => (
-          <button
-            key={index}
-            onClick={() => handleOptionClick(option)}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+      {Object.values(options).map((option, index) => (
+        <Button
+          key={index}
+          onClick={() => handleOptionClick(option)}
+          disabled={disabledOptions.includes(option)}
+        >
+          {option}
+        </Button>
+      ))}
     </div>
   );
 };

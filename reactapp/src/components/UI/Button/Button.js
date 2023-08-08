@@ -1,5 +1,4 @@
-// Button.js
-import React from 'react';
+import React from "react";
 
 const Button = ({ children, onClick, disabled }) => {
   return (

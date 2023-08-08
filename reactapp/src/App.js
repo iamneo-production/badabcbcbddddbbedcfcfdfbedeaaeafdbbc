@@ -1,104 +1,67 @@
-// App.js
-import React, { useState } from 'react';
-import Banner from './components/UI/Banner/Banner';
-import Card from './components/UI/Card/Card';
-import Button from './components/UI/Button/Button';
-import './Quiz.css'
+import React, { useState } from "react";
+import Banner from "./Banner";
+import Card from "./Card";
+import Button from "./Button";
+
 const App = () => {
   const [questions, setQuestions] = useState([
     {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'Berlin', 'Madrid', 'London'],
-      correctOption: 0,
-      selectedOption: null,
+      questionId: 1,
+      question: "What is the capital of France?",
+      options: {
+        option1: "Paris",
+        option2: "Berlin",
+        option3: "Madrid",
+        option4: "Rome",
+      },
+      answer: "Paris",
     },
-    {
-      question: 'What is the largest mammal?',
-      options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
-      correctOption: 2,
-      selectedOption: null,
-    },
-    {
-      question: 'Which famous scientist developed the theory of relativity?',
-      options: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'],
-      correctOption: 1,
-      selectedOption: null,
-    },
-    {
-      question: 'Which gas do plants use for photosynthesis?',
-      options: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
-      correctOption: 0,
-      selectedOption: null,
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
-      correctOption: 1,
-      selectedOption: null,
-    },
+    // Add more questions here
   ]);
-
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [score, setScore] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const [score, setScore] = useState(0);
 
-  const handleOptionSelect = (selectedOptionIndex) => {
-    const selectedQuestion = questions[currentQuestionIndex];
-    if (selectedQuestion.selectedOption === null) {
-      selectedQuestion.selectedOption = selectedOptionIndex;
-      setQuestions([...questions]);
+  const handleAttempt = (isCorrect) => {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+    setCurrentIndex(currentIndex + 1);
+    if (currentIndex === questions.length - 1) {
+      setShowResults(true);
     }
   };
 
-  const handleShowResults = () => {
-    let newScore = 0;
-    questions.forEach((question) => {
-      if (question.selectedOption === question.correctOption) {
-        newScore++;
-      }
-    });
-    setScore(newScore);
-    setShowResults(true);
-  };
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      handleShowResults();
-    }
-  };
-
-  const handleRestartQuiz = () => {
-    setQuestions(
-      questions.map((question) => ({ ...question, selectedOption: null }))
-    );
-    setCurrentQuestionIndex(0);
-    setScore(0);
+  const handleRestart = () => {
+    setCurrentIndex(0);
     setShowResults(false);
+    setScore(0);
   };
 
   return (
-    <div className="app">
+    <div>
       <Banner />
-      {!showResults ? (
-        <Card
-          question={questions[currentQuestionIndex].question}
-          options={questions[currentQuestionIndex].options}
-          onOptionSelect={handleOptionSelect}
-          selectedOption={questions[currentQuestionIndex].selectedOption}
-        />
-      ) : (
-        <div className="results">
-          <p>Your Score: {score} out of {questions.length}</p>
+      {showResults ? (
+        <div>
+          <h2>Your Score: {score}</h2>
+          <Button onClick={handleRestart}>Start Quiz</Button>
         </div>
-      )}
-      
-      {!showResults && (
-        <Button text="Next Question" onClick={handleNextQuestion} />
-      )}
-      {showResults && (
-        <Button text="Restart Quiz" onClick={handleRestartQuiz} />
+      ) : (
+        <div>
+          <Card
+            question={questions[currentIndex].question}
+            options={questions[currentIndex].options}
+            answer={questions[currentIndex].answer}
+            correctAnswerMarkUpdate={handleAttempt}
+            attempt={handleAttempt}
+          />
+          <Button
+            onClick={() => setShowResults(true)}
+            disabled={currentIndex < questions.length - 1}
+          >
+            Show Results
+          </Button>
+        </div>
       )}
     </div>
   );

@@ -1,12 +1,7 @@
-// Banner.js
-import React from 'react';
+import React from "react";
 
 const Banner = () => {
-  return (
-    <div className="banner">
-      <h1>Trivia Quiz App</h1>
-    </div>
-  );
+  return <h1>Quizz App</h1>;
 };
 
 export default Banner;
