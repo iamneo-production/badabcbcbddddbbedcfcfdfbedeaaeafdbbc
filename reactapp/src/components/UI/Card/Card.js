@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
 
-const Card = ({
-  question,
-  options,
-  answer,
-  correctAnswerMarkUpdate,
-  attempt,
-}) => {
+const Card = ({ question, options, answer, attempt }) => {
   const [disabledOptions, setDisabledOptions] = useState([]);
 
   const handleOptionClick = (option) => {
@@ -16,11 +10,11 @@ const Card = ({
   };
 
   return (
-    <div>
+    <div className="card">
       <h4>{question}</h4>
-      {Object.values(options).map((option, index) => (
+      {Object.entries(options).map(([key, option]) => (
         <Button
-          key={index}
+          key={key}
           onClick={() => handleOptionClick(option)}
           disabled={disabledOptions.includes(option)}
         >
