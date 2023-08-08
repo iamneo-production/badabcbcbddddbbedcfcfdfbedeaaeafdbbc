@@ -17,7 +17,30 @@ const App = () => {
       },
       answer: "Paris",
     },
-    // Add more questions here
+    {
+      question: 'What is the largest mammal?',
+      options: ['Elephant', 'Giraffe', 'Blue Whale', 'Hippopotamus'],
+      correctOption: 2,
+      selectedOption: null,
+    },
+    {
+      question: 'Which famous scientist developed the theory of relativity?',
+      options: ['Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Nikola Tesla'],
+      correctOption: 1,
+      selectedOption: null,
+    },
+    {
+      question: 'Which gas do plants use for photosynthesis?',
+      options: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
+      correctOption: 0,
+      selectedOption: null,
+    },
+    {
+      question: 'Which planet is known as the Red Planet?',
+      options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
+      correctOption: 1,
+      selectedOption: null,
+    },
   ]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from './components/UI/Button/Button';
+import Button from "../Button/Button";
 
 const Card = ({
   question,
